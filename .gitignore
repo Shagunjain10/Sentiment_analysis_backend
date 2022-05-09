@@ -1,1 +1,4 @@
 venv/
+*.pyc
+sentiment_analysis_backend/db.sqlite3
+sentiment_analysis_backend/media/finalized_model.sav
