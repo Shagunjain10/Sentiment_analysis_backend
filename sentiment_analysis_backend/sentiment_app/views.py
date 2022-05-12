@@ -32,6 +32,12 @@ class ImageView(viewsets.ViewSet):
             text = pytesseract.image_to_string(image)
             text = text.encode("ascii", "ignore")
             text = text.decode()
+            text = text.strip()
+            if not text or len(text)<3:
+                return Response(
+                    {"message": "Result Found Successfully","result":"random", "success": True},
+                    status=status.HTTP_200_OK,
+                )
             predtext=[]
             sentence = re.sub('[^a-zA-Z123456789]', ' ', text)
             sentence = sentence.lower()
@@ -51,7 +57,8 @@ class ImageView(viewsets.ViewSet):
             predict = "positive"
             if not predtest[0]:
                 predict="negative"
-
+            print("result")
+            print(predict)
             return Response(
                 {"message": "Result Found Successfully","result":predict, "success": True},
                 status=status.HTTP_200_OK,
